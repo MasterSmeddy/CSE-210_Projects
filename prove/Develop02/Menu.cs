@@ -1,5 +1,6 @@
 public class Menu
 {
+    // Display Menu Options; Return User Input
     public int DisplayMenu()
     {
         Console.WriteLine("Please select one of the following choices:");

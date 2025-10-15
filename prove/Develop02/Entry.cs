@@ -1,26 +1,21 @@
 public class Entry
 {
-    private string _entry;
+    public string _entry;
     Prompt _prompt = new Prompt();
-    
+
+    // Get Journal Entry;
     public void ReceiveEntry()
     {
-        Console.Write("Enter the current date: ");
-        string date = Console.ReadLine();
+        DateTime date = DateTime.Now;
         string question = _prompt.ShowPrompt();
         Console.WriteLine(question);
+        Console.Write(">");
         _entry = Console.ReadLine();
-        _entry = $"Date: {date} - Prompt: {question}\n{_entry}";
-
-
-
-
+        _entry = $"Date: {date} - Prompt: {question}\n>{_entry}";
     }
+    // Display Entries
     public void Display()
     {
-    
         Console.WriteLine(_entry);
-
     }
-    
 }

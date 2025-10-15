@@ -10,8 +10,9 @@ class Program
         // Declare Variables & New Objects
         int choice = 0;
         Menu menu = new Menu();
-        List<Entry> journal = new List<Entry>();
+        Journal journal = new Journal();
 
+        // MENU | Option Select
         while (choice != 5)
         {
             choice = menu.DisplayMenu();
@@ -21,30 +22,27 @@ class Program
             {
                 Entry entry = new Entry();
                 entry.ReceiveEntry();
-                journal.Add(entry);
-
+                journal.AddEntry(entry);
+                Console.WriteLine();
             }
 
             // DISPLAY
             else if (choice == 2)
             {
-                foreach (Entry entry in journal)
-                {
-                    entry.Display();
-                    Console.WriteLine();
-                }
+                Console.WriteLine();
+                journal.DisplayListOfEntries();
             }
 
             // LOAD
             else if (choice == 3)
             {
-                // Code here
+                journal.ReadFromFile();
             }
 
             // SAVE
             else if (choice == 4)
             {
-                // Code here                
+                journal.SaveToFile();
             }
 
             // QUIT
@@ -53,7 +51,7 @@ class Program
                 if (choice != 5)
                     Console.WriteLine("\n[Invalid Input] Please try again.\n");
             }
-            
+
         }
             Console.WriteLine("\n[Program Quit]\n");
 
