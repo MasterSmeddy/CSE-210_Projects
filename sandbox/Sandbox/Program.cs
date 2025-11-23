@@ -4,26 +4,20 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Sandbox World!");
+        // Console.WriteLine("Hello Sandbox World!");
 
-        School school1 = new School();
-        school1._name = "BYU-I";
-        school1._numStudents = 32000;
-        school1._numTeachers = 500;
+        Animal someAnimal = new Dog();
+        Animal anotherAnimal = new Cat();
+        Animal animal3 = new Ostrich();
 
+        List<Animal> animals = new List<Animal>();
+        animals.Add(someAnimal);
+        animals.Add(anotherAnimal);
+        animals.Add(animal3);
 
-        Student student1 = new Student();
-        student1._name = "Bill Alexander";
-
-        school1._students.Add(student1);
-
-        school1.ShowDetails();
-
-        School school2 = new School();
-        school2._name = "BYU Provo";
-        school2._numStudents = 50000;
-        school2._numTeachers = 1000;
-
-        school2.ShowDetails();
+        foreach (Animal a in animals)
+        {
+            Console.WriteLine(a.GetSound());
+        }
     }
 }
