@@ -27,8 +27,10 @@ class Program
         Console.WriteLine("----------------------------");
 
         bool running = true;
-        
+
         // MENU [[[WORK IN PROGRESS]]]
+        // Only needs to compile , per the assignment.
+        // Pressing certain options that aren't currently instantiated are going to cause errors, but NOT "compile" errors so we should be chilling
         while (running)
         {
             Console.WriteLine("1. Humanity/Empire");
