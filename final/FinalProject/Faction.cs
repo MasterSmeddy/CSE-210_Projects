@@ -4,9 +4,9 @@ public abstract class Faction
     protected string _tagline;
     protected string _description;
     protected string _modelName;
-    protected int _modelCost;
+    protected double _modelCost;
 
-    public Faction(string name, string tagline, string description, string modelName, int modelCost)
+    public Faction(string name, string tagline, string description, string modelName, double modelCost)
     {
         _name = name;
         _tagline = tagline;
@@ -17,10 +17,11 @@ public abstract class Faction
 
     public virtual void DisplayInfo()
     {
-        Console.WriteLine($"---- {_name} ----");
-        Console.WriteLine($"-Tagline: \"{_tagline}\"");
+        Console.WriteLine($"------------ {_name} ------------");
+        Console.WriteLine($"-Warcry: \"{_tagline}\"");
         Console.WriteLine($"-Description: {_description}");
-        Console.WriteLine($"-Most Expensive Model: {_modelName} (${_modelCost}.00)");
-        Console.WriteLine();
+        Console.WriteLine($"-Most Expensive Model: {_modelName} (${_modelCost:F2})");
     }
+
+    public abstract bool GetsAlongWith(Faction faction);
 }
