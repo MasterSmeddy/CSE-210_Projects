@@ -4,117 +4,84 @@ class Program
 {
     static void Main(string[] args)
     {
-        LoadingSpinner s = new LoadingSpinner();
-
-        Breathing breathing = new Breathing
-        (
-            "Breathing Activity", "This activity will help you relax by walking " +
-            "your through breathing in and out slowly. Clear your mind and focus " +
-            "on your breathing.",
-            10
+        // Create activities
+        Breathing breathing = new Breathing(
+            "Breathing Activity",
+            "This activity will help you relax by walking you through breathing " +
+            "in and out slowly. Clear your mind and focus on your breathing."
         );
 
-        Reflection reflection = new Reflection
-        (
+        Reflection reflection = new Reflection(
             "Reflection Activity",
             "This activity will help you reflect on times in your life when you " +
             "have shown strength and resilience. This will help you recognize the " +
-            "power you have and how you can use it in other aspects of your life.",
-            10
+            "power you have and how you can use it in other aspects of your life."
         );
 
-        Listing listing = new Listing
-        (
+        Listing listing = new Listing(
             "Listing Activity",
-
             "This activity will help you reflect on the good things in your life " +
-            "by having you list as many things as you can in a certain area.",
-            10
+            "by having you list as many things as you can in a certain area."
         );
 
-        Console.WriteLine("\n ----- Welcome to the Mindfulness Activity -----");
-
-        int choice = 0;
         bool keepRunning = true;
+
+        Console.WriteLine("\n----- Welcome to the Mindfulness Program -----");
 
         while (keepRunning)
         {
-            // MENU
-            Console.WriteLine("\nMenu Options: ");
-            Console.WriteLine("\t1. Start Breathing Activity");
-            Console.WriteLine("\t2. Start Reflection Activity");
-            Console.WriteLine("\t3. Start Listing Activity");
-            Console.WriteLine("\t4. Start 4th Activity");
-            Console.WriteLine("\t5. Quit");
-            Console.Write("\nSelect a choice from the menu: ");
+            Console.WriteLine("\nMenu Options:");
+            Console.WriteLine("  1. Start Breathing Activity");
+            Console.WriteLine("  2. Start Reflection Activity");
+            Console.WriteLine("  3. Start Listing Activity");
+            Console.WriteLine("  4. Quit");
 
-            // Handle Invalid or Empty Datatype
-            try
+            int input = UI.ReadInt("\nSelect a choice from the menu: ");
+            Console.Clear();
+
+            switch (input)
             {
-                string result = Console.ReadLine();
-                choice = int.Parse(result);
-            }
+                case 1:
+                    breathing.Run();
+                    break;
 
-            catch (FormatException ex)
-            {
-                Console.WriteLine("\n[Error: Invalid Format Detected]");
-                Console.WriteLine($"Exception Message: {ex.Message}");
-                continue;
-            }
+                case 2:
+                    reflection.Run();
+                    break;
 
+                case 3:
+                    listing.Run();
+                    break;
 
-            /// CHOICES / ACTIVITY
+                case 4:
+                    keepRunning = false;
+                    break;
 
-            // BREATHING ACTIVITY
-            if (choice == 1)
-            {
-                breathing.DisplayActivityInfo();
-                breathing.GetBackgroundTimer();
-                Console.WriteLine("Get ready...");
-                s.Loading();
-                breathing.SetBackgroundTimer();
-                breathing.DisplayBreathe();
-            }
-
-            // REFLECTION ACTIVITY
-            else if (choice == 2)
-            {
-                reflection.DisplayActivityInfo();
-                reflection.GetBackgroundTimer();
-                Console.WriteLine("Get ready...");
-                s.Loading();
-                reflection.SetBackgroundTimer();
-            }
-
-            // LISTING ACTIVITY
-            else if (choice == 3)
-            {
-                listing.DisplayActivityInfo();
-                listing.GetBackgroundTimer();
-                Console.WriteLine("Get ready...");
-                s.Loading();
-                listing.SetBackgroundTimer();
-            }
-
-            // 4TH ACTIVITY
-            else if (choice == 4)
-            {
-                Console.WriteLine("\n4th Activity");
-            }
-
-            // QUIT PROGRAM
-            else if (choice == 5)
-            {
-                keepRunning = false;
-            }
-
-            else
-            {
-                Console.WriteLine("\nPlease enter a number between 1-5!");
+                default:
+                    Console.WriteLine("Please enter a number between 1 and 4.");
+                    break;
             }
         }
 
-        Console.WriteLine("\nProgram Quit\n");
+        Console.WriteLine("\nThank you for using the Mindfulness Program. Goodbye!\n");
     }
 
+}
+
+public static class UI
+{
+    public static int ReadInt(string prompt)
+    {
+        while (true)
+        {
+            Console.Write(prompt);
+
+            if (int.TryParse(Console.ReadLine(), out int value))
+            {
+                return value;
+            }
+            
+            Console.WriteLine("\n-- Invalid Input: [Please enter an integer] --");
+        }
+    }
 }

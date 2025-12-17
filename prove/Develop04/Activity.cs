@@ -1,58 +1,72 @@
+using System;
+using System.Threading;
+
 public class Activity
 {
     private string _name;
     private string _description;
     protected int _duration;
-    protected bool _timerFinished = false;
 
-    public Activity(string name, string description, int duration)
+    public Activity(string name, string description)
     {
         _name = name;
         _description = description;
-        _duration = duration;
     }
 
-    public void DisplayActivityInfo()
+    // Introduction/Start Activity
+    public void StartActivity()
     {
-        Console.WriteLine($"\n---{_name}---\n{_description}\n");
+        Console.Clear();
+        Console.WriteLine($"--- {_name} ---\n");
+        Console.WriteLine(_description);
+        _duration = UI.ReadInt("\nHow long, in seconds, would you like for your session? ");
+
+        Console.WriteLine("\nGet ready...");
+        Pause(3);
     }
 
-    public int GetBackgroundTimer()
+    // Closing Message
+    public void EndMessage()
     {
-        Console.Write("How long, in seconds, would you like for your session? ");
-        string strDuration = Console.ReadLine();
-        _duration = int.Parse(strDuration);
-
-        return _duration;
+        Console.WriteLine("\n--- Time's up! ---");
+        Pause(3);
+        Console.WriteLine($"You have completed the {_name} for {_duration} seconds.");
+        Pause(3);
     }
 
-    // I had AI help me with Thread and DateTime to make a timer, since
-    // I don't know how to do it and Stack Overflow didn't appear to
-    // have the answer. And Drop-In Lab was already finished.
-    public void SetBackgroundTimer()
+    protected DateTime GetEndTime()
     {
-        _timerFinished = false;
-        DateTime endTime = DateTime.Now.AddSeconds(_duration);
+        return DateTime.Now.AddSeconds(_duration);
+    }
 
-        Thread timerThread = new Thread(() =>
+    protected void Pause(int seconds)
+    {
+        string[] spinner = { "/", "-", "\\", "|" };
+        int index = 0;
+        DateTime endTime = DateTime.Now.AddSeconds(seconds);
+
+        while (DateTime.Now < endTime)
         {
-            while (DateTime.Now < endTime)
-            {
-                Thread.Sleep(1000);
-            }
+            Console.Write(spinner[index]);
+            Thread.Sleep(250);
+            Console.Write("\b \b");
 
-            _timerFinished = true;
-            Console.WriteLine("\n\nTime's up!\n");
-            Thread.Sleep(3000);
-        });
-
-        timerThread.Start();
-
+            index = (index + 1) % spinner.Length;
+        }
     }
 
-    public bool IsTimerFinished()
+    protected void Countdown(int seconds)
     {
-        return _timerFinished;
+        int remainingSeconds = seconds;
+
+        while (remainingSeconds > 0)
+        {
+            Console.Write(remainingSeconds);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+
+            remainingSeconds--;
+        }
     }
-    
+
 }

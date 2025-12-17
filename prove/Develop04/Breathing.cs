@@ -1,42 +1,32 @@
 public class Breathing : Activity
 {
-
-    public Breathing(string name, string description, int duration) : base(name, description, duration)
+    public Breathing(string name, string description) : base(name, description)
     {
         
     }
 
-    public void DisplayBreathe()
+    public void Run()
     {
-        Console.WriteLine();
+        StartActivity();
 
-        while (_timerFinished == false)
+        DateTime endTime = GetEndTime();
+
+        // Start breathing
+        while (DateTime.Now < endTime)
         {
-            Console.WriteLine("\n");
+            Console.Write("\nBreathe in... ");
+            Countdown(4);
 
-            for (int i = 4; i > 0; i--)
+            // Time up? Kill timer
+            if (DateTime.Now >= endTime)
             {
-                if (_timerFinished == true)
-                {
-                    break;
-                }
-                Console.Write($"\rBreathe in...{i}");
-                Thread.Sleep(1000);
+                break;
             }
 
-            Console.WriteLine("\n");
-
-            for (int i = 5; i > 0; i--)
-            {
-                if (_timerFinished == true)
-                {
-                    break;
-                }
-                Console.Write($"\rNow breathe out...{i}");
-                Thread.Sleep(1000);
-            }
-
-            Console.Write("\r                      ");
+            Console.Write("\nNow breathe out... ");
+            Countdown(5);
         }
+
+        EndMessage();
     }
 }
